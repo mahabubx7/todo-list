@@ -1,13 +1,5 @@
-import _ from 'lodash';
+import ToDo from './libs/ToDo';
 import './style.css';
 
-function component() {
-  const element = document.createElement('div');
-
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-  element.classList.add('hello');
-
-  return element;
-}
-
-document.body.appendChild(component());
+// eslint-disable-next-line no-new
+new ToDo(); // calling ToDo
