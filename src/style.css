@@ -100,3 +100,8 @@ input[type="checkbox"],
   font-weight: 500;
   margin: 0;
 }
+
+.completed {
+  text-decoration: line-through;
+  color: #999;
+}
