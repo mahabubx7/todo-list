@@ -2,24 +2,11 @@ import Task from './Task.js';
 import Storage from './Storage.js';
 import Renderer from './Renderer.js';
 
-const dummyArray = [
-  {
-    description: 'wash the dishes',
-    completed: false,
-    index: 1,
-  },
-  {
-    description: 'complete To Do list project',
-    completed: false,
-    index: 2,
-  },
-];
-
 export default class ToDo {
   constructor() {
     this.storage = new Storage('todo');
     this.index = new Storage('indexTrack');
-    this.list = this.storage.get() || dummyArray;
+    this.list = this.storage.get() || [];
     this.storage.set(this.list);
     this.render = new Renderer('#list');
   }
