@@ -6,13 +6,20 @@ import Renderer from './Renderer.js';
 export default class ToDo {
   constructor() {
     this.storage = new Storage('todo');
-    this.index = new Storage('indexTrack');
     this.list = this.storage.get() || [];
+    this.index = this.list.length > 0 ? this.list.length : 0;
     this.render = new Renderer('#list');
     this.syncUpdates();
   }
 
+  serialize() {
+    this.list.forEach((it, index) => {
+      it.index = index + 1;
+    });
+  }
+
   syncUpdates() {
+    this.serialize();
     this.storage.set(this.list);
     this.render.render();
   }
@@ -27,9 +34,8 @@ export default class ToDo {
   }
 
   add(task) {
-    const indexNumber = Number(this.index.get() + 1);
+    const indexNumber = Number(this.index);
     this.list.push(new Task(task, indexNumber));
-    this.index.set(Number(this.index.get() + 1));
     this.syncUpdates();
   }
 
@@ -52,6 +58,5 @@ export default class ToDo {
   reset() {
     this.list = []; // list reset
     this.syncUpdates(); // storage reset
-    this.index.set(0); // index reset
   }
 }

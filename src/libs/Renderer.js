@@ -25,15 +25,21 @@ export default class Renderer {
         <input type="checkbox" ${it.completed ? 'checked' : ''}>
         <span class="${it.completed ? 'completed' : ''}">${it.description}</span>
         <button class="option"><i class="ri-more-2-fill"></i></button>
+        <button class="btn-delete hidden" data-index="${it.index}"><i class="ri-delete-bin-line"></i></button>
         `;
         item.addEventListener('change', (event) => Behaviors.toggle(event));
         item.addEventListener('dblclick', () => {
           item.querySelector('span').contentEditable = true;
+          const del = item.querySelector('.btn-delete');
+          item.querySelector('.option').classList.add('hidden');
+          del.classList.remove('hidden');
+          del.addEventListener('click', (event) => Behaviors.delete(event));
         });
         item.querySelector('span').addEventListener('keydown', (event) => {
           if (event.key === 'Enter') {
             Behaviors.edit(event);
             event.target.removeAttribute('contentEditable');
+            item.querySelector('.option').classList.remove('hidden');
           }
         });
         this.element.appendChild(item); // updating DOM content

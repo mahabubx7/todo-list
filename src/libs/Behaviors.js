@@ -8,7 +8,7 @@ export default class Behaviors {
   }
 
   static delete(event) {
-    const { index } = event.target.dataset;
+    const { index } = event.target.parentElement.dataset;
     new ToDo().remove(index);
   }
 
