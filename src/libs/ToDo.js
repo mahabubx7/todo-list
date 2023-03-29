@@ -8,12 +8,13 @@ export default class ToDo {
     this.storage = new Storage('todo');
     this.index = new Storage('indexTrack');
     this.list = this.storage.get() || [];
-    this.syncUpdates();
     this.render = new Renderer('#list');
+    this.syncUpdates();
   }
 
   syncUpdates() {
     this.storage.set(this.list);
+    this.render.render();
   }
 
   toggleTask(index) {
@@ -23,7 +24,6 @@ export default class ToDo {
       }
     });
     this.syncUpdates();
-    this.render.render();
   }
 
   add(task) {
@@ -31,24 +31,21 @@ export default class ToDo {
     this.list.push(new Task(task, indexNumber));
     this.index.set(Number(this.index.get() + 1));
     this.syncUpdates();
-    this.render.render();
   }
 
   remove(index) {
     this.list = this.list.filter((it) => it.index !== Number(index));
     this.syncUpdates();
-    this.render.render();
   }
 
   clearCompleted() {
     this.list = this.list.filter((it) => it.completed === false);
     this.syncUpdates();
-    this.render.render();
   }
 
   reset() {
     this.list = []; // list reset
     this.syncUpdates(); // storage reset
-    this.render.render();
+    this.index.set(0); // index reset
   }
 }
