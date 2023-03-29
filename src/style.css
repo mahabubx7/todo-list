@@ -54,7 +54,6 @@ ul {
 
 #list span {
   width: 100%;
-  min-width: fit-content;
   border: none;
   outline: 0;
 }

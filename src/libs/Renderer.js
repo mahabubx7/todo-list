@@ -30,6 +30,7 @@ export default class Renderer {
         item.addEventListener('change', (event) => Behaviors.toggle(event));
         item.addEventListener('dblclick', () => {
           item.querySelector('span').contentEditable = true;
+          item.querySelector('span').focus();
           const del = item.querySelector('.btn-delete');
           item.querySelector('.option').classList.add('hidden');
           del.classList.remove('hidden');
