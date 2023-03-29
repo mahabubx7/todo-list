@@ -12,9 +12,9 @@ export default class Behaviors {
     new ToDo().remove(index);
   }
 
-  // static edit(event) {
-  //   //
-  // }
+  static edit(event) {
+    new ToDo().update(event.target.parentElement.dataset.index, event.target.textContent);
+  }
 
   static toggle(event) {
     const { index } = event.target.parentElement.dataset;

@@ -33,6 +33,12 @@ export default class ToDo {
     this.syncUpdates();
   }
 
+  update(id, desc) {
+    const index = this.list.findIndex((task) => task.index === Number(id));
+    this.list[index] = { ...this.list[index], description: desc };
+    this.syncUpdates();
+  }
+
   remove(index) {
     this.list = this.list.filter((it) => it.index !== Number(index));
     this.syncUpdates();

@@ -51,6 +51,13 @@ ul {
   border-bottom: 2px solid #e7e7e7;
 }
 
+#list span {
+  width: 100%;
+  min-width: fit-content;
+  border: none;
+  outline: 0;
+}
+
 #list .option {
   display: inline-block;
   margin-left: auto;
