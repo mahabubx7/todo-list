@@ -125,13 +125,6 @@ Testing with Lint-checks:
   npm test
 ```
 
-
-### Deployment
-
-Deployed in `Github Pages`.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 <!-- AUTHORS -->
 
 ## 👥 Authors <a name="authors"></a>
