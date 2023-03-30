@@ -128,7 +128,7 @@ Testing with Lint-checks:
 
 ### Deployment
 
-Deployed in `Github Pages`.
+Deployed in `Github Pages`. [Live Preview](https://mahabubx7.github.io/todo-list/dist)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
