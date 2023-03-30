@@ -5,7 +5,7 @@ node_modules/
 .tmp
 
 # builds
-dist/
+# dist/
 build/
 output/
 

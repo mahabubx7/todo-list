@@ -125,6 +125,12 @@ Testing with Lint-checks:
   npm test
 ```
 
+### Deployment
+
+Deployed in `Github Pages`. [Live Preview](https://mahabubx7.github.io/todo-list/dist)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 <!-- AUTHORS -->
 
 ## 👥 Authors <a name="authors"></a>
