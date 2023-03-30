@@ -1,40 +1,62 @@
+/* eslint-disable import/no-cycle */
 import Task from './Task.js';
 import Storage from './Storage.js';
 import Renderer from './Renderer.js';
 
-const dummyArray = [
-  {
-    description: 'wash the dishes',
-    completed: false,
-    index: 1,
-  },
-  {
-    description: 'complete To Do list project',
-    completed: false,
-    index: 2,
-  },
-];
-
 export default class ToDo {
   constructor() {
     this.storage = new Storage('todo');
-    this.index = new Storage('indexTrack');
-    this.list = this.storage.get() || dummyArray;
-    this.storage.set(this.list);
+    this.list = this.storage.get() || [];
+    this.index = this.list.length > 0 ? this.list.length : 0;
     this.render = new Renderer('#list');
+    this.syncUpdates();
+  }
+
+  serialize() {
+    this.list.forEach((it, index) => {
+      it.index = index + 1;
+    });
+  }
+
+  syncUpdates() {
+    this.serialize();
+    this.storage.set(this.list);
+    this.render.render();
+  }
+
+  toggleTask(index) {
+    this.list.forEach((task) => {
+      if (task.index === Number(index)) {
+        task.completed = !task.completed;
+      }
+    });
+    this.syncUpdates();
   }
 
   add(task) {
-    const indexNumber = Number(this.index.get() + 1);
-    this.list.push(new Task(task.description, indexNumber));
-    this.index.set(Number(this.index.get() + 1));
-    this.render.render(this.list);
+    const indexNumber = Number(this.index);
+    this.list.push(new Task(task, indexNumber));
+    this.syncUpdates();
+  }
+
+  update(id, desc) {
+    const index = this.list.findIndex((task) => task.index === Number(id));
+    this.list[index] = { ...this.list[index], description: desc };
+    this.syncUpdates();
   }
 
   remove(index) {
-    let { list } = this;
-    list = list.filter((it) => it.index !== index);
-    this.list = list;
-    this.render.render(this.list);
+    this.list = this.list.filter((it) => it.index !== Number(index));
+    this.syncUpdates();
+  }
+
+  clearCompleted() {
+    this.list = this.list.filter((it) => it.completed === false);
+    this.syncUpdates();
+  }
+
+  reset() {
+    this.list = []; // list reset
+    this.syncUpdates(); // storage reset
   }
 }
