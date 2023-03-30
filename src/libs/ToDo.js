@@ -13,8 +13,8 @@ export default class ToDo {
   }
 
   serialize() {
-    this.list.forEach((it, index) => {
-      it.index = index + 1;
+    this.list.forEach((it, indx) => {
+      it.index = indx + 1;
     });
   }
 
@@ -55,8 +55,7 @@ export default class ToDo {
     this.syncUpdates();
   }
 
-  reset() {
-    this.list = []; // list reset
+  refresh() {
     this.syncUpdates(); // storage reset
   }
 }

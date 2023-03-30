@@ -7,7 +7,7 @@ new ToDo(); // calling ToDo
 
 // Functionalities behaviors
 const input = document.querySelector('#input');
-const reset = document.querySelector('#reset');
+const reload = document.querySelector('#reload');
 const clear = document.querySelector('#btn-clear');
 
 const insertTask = (event) => {
@@ -19,12 +19,19 @@ const insertTask = (event) => {
 
 const clearAllCompleted = () => Behaviors.clearCompleted();
 
-const resetTasks = () => Behaviors.resetAll();
+const reloadList = () => {
+  document.querySelector('#list').innerHTML = '<li>Reloading...</li>';
+  reload.classList.add('spin');
+  setTimeout(() => {
+    Behaviors.reload();
+    reload.classList.remove('spin');
+  }, 1500);
+};
 
 // after page loads
 document.addEventListener('DOMContentLoaded', () => {
   // event bindings
-  reset.addEventListener('click', resetTasks);
+  reload.addEventListener('click', reloadList);
   input.addEventListener('keypress', insertTask);
   clear.addEventListener('click', clearAllCompleted);
 });

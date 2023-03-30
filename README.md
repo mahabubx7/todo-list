@@ -125,7 +125,6 @@ Testing with Lint-checks:
   npm test
 ```
 
-
 ### Deployment
 
 Deployed in `Github Pages`. [Live Preview](https://mahabubx7.github.io/todo-list/dist)

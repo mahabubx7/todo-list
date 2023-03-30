@@ -21,6 +21,7 @@ export default class Renderer {
       this.list.forEach((it) => {
         const item = document.createElement('li');
         item.dataset.index = it.index;
+        item.draggable = true;
         item.innerHTML = `
         <input type="checkbox" ${it.completed ? 'checked' : ''}>
         <span class="${it.completed ? 'completed' : ''}">${it.description}</span>
@@ -30,6 +31,7 @@ export default class Renderer {
         item.addEventListener('change', (event) => Behaviors.toggle(event));
         item.addEventListener('dblclick', () => {
           item.querySelector('span').contentEditable = true;
+          item.classList.add('edit');
           item.querySelector('span').focus();
           const del = item.querySelector('.btn-delete');
           item.querySelector('.option').classList.add('hidden');
@@ -41,9 +43,28 @@ export default class Renderer {
             Behaviors.edit(event);
             event.target.removeAttribute('contentEditable');
             item.querySelector('.option').classList.remove('hidden');
+            item.classList.remove('edit');
           }
         });
         this.element.appendChild(item); // updating DOM content
+        const itemList = document.querySelectorAll('#list li');
+        itemList.forEach((it) => {
+          it.addEventListener('dragstart', () => setTimeout(() => it.classList.add('dragging'), 0));
+          it.addEventListener('dragend', () => it.classList.remove('dragging'));
+        });
+
+        this.element.addEventListener('dragover', (event) => {
+          event.preventDefault();
+          const draggingItems = this.element.querySelector('li.dragging');
+          const siblings = [...this.element.querySelectorAll('li:not(.dragging)')];
+          const nextSibling = siblings.find((sibling) => {
+            const { offsetTop, offsetHeight } = sibling;
+            return event.clientY <= offsetTop + offsetHeight / 2;
+          });
+          this.element.insertBefore(draggingItems, nextSibling);
+        }, true);
+
+        this.element.addEventListener('dragenter', (event) => event.preventDefault());
       });
     } else {
       this.element.innerHTML = '<li>List is empty!</li>';
