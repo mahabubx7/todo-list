@@ -25,7 +25,7 @@ export default class Behaviors {
     new ToDo().clearCompleted();
   }
 
-  static resetAll() {
-    new ToDo().reset();
+  static reload() {
+    new ToDo().refresh();
   }
 }
